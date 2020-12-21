@@ -1,0 +1,58 @@
+package com.adder.recyclerviewdemo;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import android.os.Bundle;
+
+import java.util.ArrayList;
+
+public class MainActivity extends AppCompatActivity {
+
+    private ArrayList<User> userList;
+    private RecyclerView recyclerView;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        recyclerView = findViewById(R.id.recyclerView);
+        userList = new ArrayList<>();
+        
+        setUserInfo();
+        setAdapter();
+    }
+
+    private void setAdapter() {
+        RecyclerAdapter adapter = new RecyclerAdapter(userList);
+
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
+        recyclerView.setLayoutManager(layoutManager);
+
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+
+        recyclerView.setAdapter(adapter);
+    }
+
+    /*this will set the user name in the recycler view.
+    In a real case situation we should get input from the user if needed.
+    here we will be hard coding in the information*/
+    private void setUserInfo() {
+        userList.add(new User("John"));
+        userList.add(new User("Kelly"));
+        userList.add(new User("Bjorn"));
+        userList.add(new User("Melina"));
+        userList.add(new User("Chris"));
+        userList.add(new User("Neftali"));
+        userList.add(new User("Candace"));
+        userList.add(new User("Kim"));
+        userList.add(new User("Kyle"));
+        userList.add(new User("Marx"));
+        userList.add(new User("Angie"));
+        userList.add(new User("Teerath"));
+        userList.add(new User("Paul"));
+
+    }
+}
