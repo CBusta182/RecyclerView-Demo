@@ -1,0 +1,60 @@
+package com.adder.recyclerviewdemo;
+
+
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
+import java.util.ArrayList;
+
+//in order to have a recycler view we need to create an adapter which wil be this class
+public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.myViewHolder> {
+
+    private ArrayList<User> userList;
+
+    //when we want to use our recycler list we have to pass the adapter a list of users
+    public RecyclerAdapter(ArrayList<User> userList){
+        this.userList = userList;
+    }
+
+    //need to create an internal class to hold our instances
+    public class myViewHolder extends RecyclerView.ViewHolder{
+        private TextView username;
+
+        public myViewHolder(final View view){
+            super(view);
+            username = view.findViewById(R.id.nameTV);
+
+        }
+
+    }
+
+    @NonNull
+    @Override
+    public RecyclerAdapter.myViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        /*chooses where the recycler view is going to be inflated.
+        * finds the parent activity. in this case it will be the main activity
+        * picks what to inflate
+        * gets the context of the parent to place the recycler view somewhere*/
+        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_items,
+               parent, false);
+        return new myViewHolder(itemView);
+    }
+
+    @Override
+    //you have to find the position of the view holder
+    public void onBindViewHolder(@NonNull RecyclerAdapter.myViewHolder holder, int position) {
+        String name = userList.get(position).getUsername();
+        //we can set the text of the text view to the names of the userLIst
+        holder.username.setText(name);
+    }
+
+    @Override
+    public int getItemCount() {
+        return userList.size();
+    }
+}
